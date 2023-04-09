@@ -49,18 +49,32 @@ namespace Logi_SetRGB
                             switch(command)
                             {
                                 case "setkey":
-                                    keyId = Convert.ToInt32(parts[1], 16);
-                                    red = int.Parse(parts[2]);
-                                    green = int.Parse(parts[3]);
-                                    blue = int.Parse(parts[4]);
-                                    LogitechGSDK.LogiLedSetLightingForKeyWithKeyName((keyboardNames)keyId, red, green, blue);
+                                    try
+                                    {
+                                        keyId = Convert.ToInt32(parts[1], 16);
+                                        red = int.Parse(parts[2]);
+                                        green = int.Parse(parts[3]);
+                                        blue = int.Parse(parts[4]);
+                                        LogitechGSDK.LogiLedSetLightingForKeyWithKeyName((keyboardNames)keyId, red, green, blue);
+                                    }
+                                    catch
+                                    {
+                                        Console.WriteLine($"Error parsing command: {command}");
+                                    }
                                     break;
 
                                 case "setall":
-                                    red = int.Parse(parts[1]);
-                                    green = int.Parse(parts[2]);
-                                    blue = int.Parse(parts[3]);
-                                    LogitechGSDK.LogiLedSetLighting(red, green, blue);
+                                    try
+                                    {
+                                        red = int.Parse(parts[1]);
+                                        green = int.Parse(parts[2]);
+                                        blue = int.Parse(parts[3]);
+                                        LogitechGSDK.LogiLedSetLighting(red, green, blue);
+                                    }
+                                    catch
+                                    {
+                                        Console.WriteLine($"Error parsing command: {command}");
+                                    }
                                     break;
 
                                 case "shutdown":
