@@ -2,9 +2,9 @@
 
 Command line program that allows external application to set colours on a Logitech G LightSync RGB keyboard.
 
-The program opens up a named pipe and listens for commands.
+The program opens up a named pipe and listens for incoming commands.
 
-This is a very rudimentary program as I have no expeience in C#. I threw this together so that I can change the colours from PowerShell.
+This is a very rudimentary program as I have no expeience in C#. I threw this together so that I can change the colours from a PowerShell script.
 
 The following commands are currently supported:
 
@@ -38,4 +38,22 @@ Shut down the program
 
 ```
 shutdown
+```
+
+### example client (PowerShell)
+
+```powershell
+$pipe = New-Object System.IO.Pipes.NamedPipeClientStream('.', $pipeName, [System.IO.Pipes.PipeDirection]::Out)
+$pipe.Connect()
+$writer = New-Object System.IO.StreamWriter($pipe)
+$writer.AutoFlush = $true
+
+$writer.WriteLine("setall,32,32,32")
+$writer.WriteLine("setkey,0x3e,160,32,110")
+$writer.WriteLine("setkey,0xFFFF1,128,32,110")
+
+$writer.WriteLine("shutdown")
+
+$writer.Close()
+$pipe.Close()
 ```
