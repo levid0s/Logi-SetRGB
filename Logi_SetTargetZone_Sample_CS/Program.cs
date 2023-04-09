@@ -8,7 +8,7 @@ using LedCSharp;
 using System.IO.Pipes;
 using System.IO;
 
-namespace Logi_SetTargetZone_Sample_CS
+namespace Logi_SetRGB
 {
     public class Program
     {
